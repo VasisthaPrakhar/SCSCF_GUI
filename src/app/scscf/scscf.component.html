@@ -1,0 +1,136 @@
+<div class="widget-container">
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <div class="widget green">
+            <div class="icon">
+              <fa-icon [icon]="faLocation"></fa-icon>
+            </div>
+            <div class="value">
+              <div class="top">Search</div>
+              <div class="bottom">MSISDN</div>
+            </div>
+          </div>
+    </button>
+    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="margin-left: 10px;">
+        <div class="widget yellow">
+        <div class="icon">
+            <fa-icon [icon]="faSearch"></fa-icon>
+        </div>
+        <div class="value">
+            <div class="top">SEARCH</div>
+            <div class="bottom">IMSI</div>
+        </div>
+        </div>
+    </button>
+  </div>
+
+
+  
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Search By MSISDN</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="searchForm" (ngSubmit)="searchUp()">
+                <label for="exampleDataList" class="form-label">MSISDN</label>
+                <input formControlName="msisdn" type="text" class="form-control" id="exampleDataList" placeholder="Type to search...">
+                <button type="submit" class="btn btn-outline-success" style="margin-top: 10px;">Search</button>
+            </form>
+            <div *ngIf="data && X">
+                <h2>API Response</h2>
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">USER: {{ data.msisdn }}</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">TimeStamp: {{ data.ts }}</h6>
+                      <h6 class="card-text">Pod ID: {{data.pod_id}} </h6>
+                      <div class="card-text"> <h6>PATH SET: </h6>
+                        <ul *ngFor="let it of data.path_set; let i = index">
+                            <li>{{it}}</li>
+                        </ul>
+                      </div>
+                      <div class="card-text"> <h6>IMSI SET: </h6>
+                          <ul *ngFor="let it of data.imsi_set; let i = index">
+                              <li>{{it}}</li>
+                          </ul>
+                      </div>
+                      <div class="card-text"> <h6>PUB ID SET: </h6>
+                          <ul *ngFor="let it of data.pub_id_set; let i = index">
+                              <li>{{it}}</li>
+                          </ul>
+                      </div>
+                      <div class="card-text"> <h6>CONTACT SET: </h6>
+                          <ul *ngFor="let it of data.contact_set; let i = index">
+                              <li>{{it}}</li>
+                          </ul>
+                      </div>
+                      
+                    </div>
+                    </div>
+            </div>
+            <div *ngIf="data==undefined && X"><h3>NOT FOUND!!</h3></div>
+                        
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="handleButtonClick()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Search By IMSI</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="searchForm" (ngSubmit)="searchUp1()">
+                  <label for="exampleDataList" class="form-label">IMSI</label>
+                  <input formControlName="msisdn" type="text" class="form-control" id="exampleDataList" placeholder="Type to search...">
+                  <button type="submit" class="btn btn-outline-success" style="margin-top: 10px;">Search</button>
+              </form>
+              <div *ngIf="data1 && X1">
+                  <h2>API Response</h2>
+                  <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">USER: {{ data1.msisdn }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">TimeStamp: {{ data1.ts }}</h6>
+                        <h6 class="card-text">Pod ID: {{data1.pod_id}} </h6>
+                        <div class="card-text"> <h6>PATH SET: </h6>
+                          <ul *ngFor="let it of data1.path_set; let i = index">
+                              <li>{{it}}</li>
+                          </ul>
+                        </div>
+                        <div class="card-text"> <h6>IMSI SET: </h6>
+                            <ul *ngFor="let it of data1.imsi_set; let i = index">
+                                <li>{{it}}</li>
+                            </ul>
+                        </div>
+                        <div class="card-text"> <h6>PUBLIC ID SET: </h6>
+                            <ul *ngFor="let it of data1.pub_id_set; let i = index">
+                                <li>{{it}}</li>
+                            </ul>
+                        </div>
+                        <div class="card-text"> <h6>CONTACT SET: </h6>
+                            <ul *ngFor="let it of data1.contact_set; let i = index">
+                                <li>{{it}}</li>
+                            </ul>
+                        </div>
+                        
+                      </div>
+                      </div>
+              </div>
+              <div *ngIf="data1==undefined && X1"><h3>NOT FOUND!!</h3></div>                  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="handleButtonClick()">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>

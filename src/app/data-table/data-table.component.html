@@ -1,0 +1,118 @@
+<!-- <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>table_chart</mat-icon>
+    </button>
+    <span>SCSCF GUI</span>
+    <span class="example-spacer"></span>
+    <button routerLink="/login" mat-raised-button color="warn" class="mx-2">Logout</button>
+  </mat-toolbar> -->
+  
+  
+  
+  <div class="container">
+    <div style="margin-top: 10px; margin-bottom: 30px;">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Sip@123" #input>
+      </mat-form-field>
+      
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+      
+          
+          <ng-container matColumnDef="MSISDN">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>MSISDN</th>
+            <td mat-cell *matCellDef="let row"> {{row.msisdn}} </td>
+          </ng-container>
+      
+          
+          <ng-container matColumnDef="POD NAME">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> POD NAME</th>
+            <td mat-cell *matCellDef="let row"> {{row.pod_id}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="IMSI SET">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> IMSI SET</th>
+            <td mat-cell *matCellDef="let row">
+              <ul *ngFor="let it of row.imsi_set; let i = index">
+                  <li>{{it}}</li>
+              </ul>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="TIMESTAMP">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> TIMESTAMP </th>
+            <td mat-cell *matCellDef="let row"> {{row.ts}} </td>
+          </ng-container>
+      
+          
+          <ng-container matColumnDef="DETAILS">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DETAILS </th>
+            <td mat-cell *matCellDef="let row">  
+              <!-- <button mat-raised-button color="warn" (click)="openDialog(row)">DETAILS</button> -->
+              <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Details
+              </button>
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">USER DATA</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">USER: {{ row.msisdn }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">TimeStamp: {{ row.ts }}</h6>
+                            <h6 class="card-text">Pod ID: {{row.pod_id}} </h6>
+                            <div class="card-text"> <h6>PATH SET: </h6>
+                              <ul *ngFor="let it of row.path_set; let i = index">
+                                  <li>{{it}}</li>
+                              </ul>
+                            </div>
+                            <div class="card-text"> <h6>IMSI SET: </h6>
+                                <ul *ngFor="let it of row.imsi_set; let i = index">
+                                    <li>{{it}}</li>
+                                </ul>
+                            </div>
+                            <div class="card-text"> <h6> ID SET: </h6>
+                                <ul *ngFor="let it of row.pub_id_set; let i = index">
+                                    <li>{{it}}</li>
+                                </ul>
+                            </div>
+                            <div class="card-text"> <h6>CONTACT SET: </h6>
+                                <ul *ngFor="let it of row.contact_set; let i = index">
+                                    <li>{{it}}</li>
+                                </ul>
+                            </div>
+                            
+                          </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+      
+      
+    </div>
+  </div>
